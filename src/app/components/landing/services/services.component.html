@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+  <mat-icon>local_hospital</mat-icon>
+  <span style="margin-left:8px;font-weight:bold;">MediCare AI</span>
+  <span style="flex:1;"></span>
+  <a mat-button routerLink="/landing">Home</a>
+  <a mat-button routerLink="/about">About</a>
+  <a mat-raised-button color="accent" routerLink="/login">Login</a>
+</mat-toolbar>
+
+<div style="background:linear-gradient(135deg,#1565c0,#0d47a1);color:white;padding:64px 24px;text-align:center;">
+  <h1 style="font-size:2.5rem;">Our Services</h1>
+  <p style="font-size:1.2rem;max-width:600px;margin:16px auto 0;">Comprehensive healthcare services powered by cutting-edge technology.</p>
+</div>
+
+<div style="padding:64px 24px;max-width:1200px;margin:0 auto;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;">
+    <mat-card *ngFor="let s of services" style="padding:28px;">
+      <mat-icon style="font-size:48px;height:48px;width:48px;color:#1565c0;">{{s.icon}}</mat-icon>
+      <h3 style="margin:16px 0 8px;font-size:1.3rem;">{{s.title}}</h3>
+      <p style="color:#666;margin-bottom:16px;">{{s.desc}}</p>
+      <div>
+        <mat-chip-set>
+          <mat-chip *ngFor="let tag of s.tags">{{tag}}</mat-chip>
+        </mat-chip-set>
+      </div>
+    </mat-card>
+  </div>
+</div>

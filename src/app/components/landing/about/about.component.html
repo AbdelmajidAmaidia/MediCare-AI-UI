@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <mat-icon>local_hospital</mat-icon>
+  <span style="margin-left:8px;font-weight:bold;">MediCare AI</span>
+  <span style="flex:1;"></span>
+  <a mat-button routerLink="/landing">Home</a>
+  <a mat-button routerLink="/services">Services</a>
+  <a mat-raised-button color="accent" routerLink="/login">Login</a>
+</mat-toolbar>
+
+<div style="background:linear-gradient(135deg,#1565c0,#0d47a1);color:white;padding:64px 24px;text-align:center;">
+  <h1 style="font-size:2.5rem;">About MediCare AI</h1>
+  <p style="font-size:1.2rem;max-width:600px;margin:16px auto 0;">On a mission to make quality healthcare accessible to everyone through technology.</p>
+</div>
+
+<div style="padding:64px 24px;max-width:900px;margin:0 auto;">
+  <h2 style="color:#1565c0;text-align:center;margin-bottom:32px;">Our Mission</h2>
+  <p style="font-size:1.1rem;line-height:1.8;color:#444;">Founded in 2020, MediCare AI bridges the gap between patients and healthcare providers using artificial intelligence. We believe that access to quality healthcare is a fundamental right, not a privilege. Our platform serves over 50,000 patients across 30+ countries, connecting them with world-class doctors, labs, and pharmacies.</p>
+</div>
+
+<div style="background:#f5f5f5;padding:64px 24px;">
+  <h2 style="text-align:center;color:#1565c0;margin-bottom:40px;">Our Core Values</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:1000px;margin:0 auto;">
+    <mat-card *ngFor="let v of values" style="padding:24px;text-align:center;">
+      <mat-icon style="font-size:40px;height:40px;width:40px;color:#1565c0;">{{v.icon}}</mat-icon>
+      <h3 style="margin:12px 0 8px;">{{v.title}}</h3>
+      <p style="color:#666;font-size:0.9rem;">{{v.desc}}</p>
+    </mat-card>
+  </div>
+</div>
+
+<div style="padding:64px 24px;max-width:1000px;margin:0 auto;">
+  <h2 style="text-align:center;color:#1565c0;margin-bottom:40px;">Leadership Team</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;">
+    <mat-card *ngFor="let m of team" style="padding:24px;text-align:center;">
+      <mat-icon style="font-size:64px;height:64px;width:64px;color:#90a4ae;">{{m.icon}}</mat-icon>
+      <h3 style="margin:16px 0 4px;">{{m.name}}</h3>
+      <p style="color:#1565c0;font-size:0.9rem;">{{m.role}}</p>
+    </mat-card>
+  </div>
+</div>
