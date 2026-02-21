@@ -1,0 +1,147 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  
+  /* "MediCare AI" UI Design System - Logo Identity */
+  
+  /* Backgrounds */
+  --background: #FFFFFF; /* Pure White */
+  --foreground: #334155; /* Dark Slate Body Text */
+  
+  /* Cards */
+  --card: #FFFFFF;
+  --card-foreground: #334155;
+  
+  --popover: #FFFFFF;
+  --popover-foreground: #334155;
+  
+  /* Primary Brand Color: Deep Navy Blue (Logo Headings/Footer) */
+  --primary: #1B365D;
+  --primary-foreground: #FFFFFF;
+  
+  /* Secondary Accent: Vivid Pulse Blue (Logo Monitor/Line) */
+  --secondary: #2E9CCA;
+  --secondary-foreground: #FFFFFF;
+  
+  --muted: #F0F4F8; /* Light Blue-Grey Banding */
+  --muted-foreground: #64748b;
+  
+  --accent: #F0F4F8;
+  --accent-foreground: #1B365D;
+  
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --input-background: #FFFFFF;
+  --switch-background: #E2E8F0;
+  
+  --ring: #2E9CCA; /* Pulse Blue for Focus Rings */
+  
+  --radius: 0.75rem; /* 12px = 0.75rem (Matching Monitor Shape) */
+  
+  /* Charts */
+  --chart-1: #1B365D;
+  --chart-2: #2E9CCA;
+  --chart-3: #5DA4D6;
+  --chart-4: #8BC4E3;
+  --chart-5: #BBE3F0;
+
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #334155;
+  --sidebar-primary: #1B365D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0F4F8;
+  --sidebar-accent-foreground: #334155;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #2E9CCA;
+  
+  --font-weight-medium: 600; /* Bold headers per instructions */
+  --font-weight-normal: 400;
+  
+  /* Headings Color */
+  --heading: #1B365D;
+}
+
+.dark {
+  /* Dark mode fallback if user switches, though Clean Medical SaaS implies Light */
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card: #1E293B;
+  --card-foreground: #F8FAFC;
+  --primary: #2E9CCA; /* Switch to brighter blue in dark */
+  --primary-foreground: #FFFFFF;
+  --secondary: #1B365D;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  --accent: #1E293B;
+  --accent-foreground: #2E9CCA;
+  --border: #334155;
+  --input: #334155;
+  --ring: #2E9CCA;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Montserrat', 'Lato', sans-serif;
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--heading);
+    font-weight: 700; /* Bold for headers matching logo text */
+    line-height: 1.2;
+  }
+}
