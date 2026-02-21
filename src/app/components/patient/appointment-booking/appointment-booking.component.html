@@ -1,0 +1,97 @@
+<div style="padding:0;max-width:800px;">
+  <h2 style="margin:0 0 24px;color:#1565c0;">Book an Appointment</h2>
+
+  <mat-stepper linear>
+    <!-- Step 1: Specialty -->
+    <mat-step [stepControl]="specialtyForm" label="Select Specialty">
+      <form [formGroup]="specialtyForm">
+        <mat-card style="padding:24px;margin:16px 0;">
+          <h3 style="margin:0 0 16px;">What type of doctor do you need?</h3>
+          <mat-form-field appearance="outline" style="width:100%;">
+            <mat-label>Medical Specialty</mat-label>
+            <mat-select formControlName="specialty">
+              <mat-option *ngFor="let s of specialties" [value]="s">{{s}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="specialtyForm.invalid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 2: Doctor -->
+    <mat-step [stepControl]="doctorForm" label="Choose Doctor">
+      <form [formGroup]="doctorForm">
+        <mat-card style="padding:24px;margin:16px 0;">
+          <h3 style="margin:0 0 16px;">Available Doctors</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div *ngFor="let d of doctors" (click)="doctorForm.patchValue({doctorName: d.name})"
+              [style.border]="doctorForm.get('doctorName')?.value === d.name ? '2px solid #1565c0' : '1px solid #ddd'"
+              style="padding:16px;border-radius:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-weight:600;">{{d.name}}</div>
+                <div style="color:#666;font-size:0.85rem;">{{d.specialty}}</div>
+                <div style="color:#f9a825;font-size:0.85rem;">★ {{d.rating}}</div>
+              </div>
+              <div [style.color]="d.available ? '#43a047' : '#e53935'" style="font-size:0.85rem;">
+                {{d.available ? '● Available' : '● Unavailable'}}
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <div style="display:flex;gap:8px;">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="doctorForm.invalid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 3: Schedule -->
+    <mat-step [stepControl]="scheduleForm" label="Pick Date & Time">
+      <form [formGroup]="scheduleForm">
+        <mat-card style="padding:24px;margin:16px 0;">
+          <h3 style="margin:0 0 16px;">Select Date & Time</h3>
+          <mat-form-field appearance="outline" style="width:100%;margin-bottom:16px;">
+            <mat-label>Appointment Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" [min]="minDate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <h4 style="margin:0 0 12px;">Available Time Slots</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <button *ngFor="let slot of timeSlots" mat-stroked-button
+              [color]="selectedSlot === slot ? 'primary' : ''"
+              [style.border-color]="selectedSlot === slot ? '#1565c0' : ''"
+              (click)="selectSlot(slot)" type="button">{{slot}}</button>
+          </div>
+        </mat-card>
+        <div style="display:flex;gap:8px;">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="scheduleForm.invalid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 4: Confirm -->
+    <mat-step [stepControl]="confirmForm" label="Confirm">
+      <form [formGroup]="confirmForm">
+        <mat-card style="padding:24px;margin:16px 0;">
+          <h3 style="margin:0 0 16px;">Appointment Details</h3>
+          <mat-form-field appearance="outline" style="width:100%;margin-bottom:16px;">
+            <mat-label>Reason for Visit</mat-label>
+            <input matInput formControlName="reason" placeholder="e.g., Annual checkup, chest pain...">
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width:100%;">
+            <mat-label>Additional Notes (optional)</mat-label>
+            <textarea matInput formControlName="notes" rows="3"></textarea>
+          </mat-form-field>
+        </mat-card>
+        <div style="display:flex;gap:8px;">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" [disabled]="confirmForm.invalid">Confirm Booking</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
+</div>

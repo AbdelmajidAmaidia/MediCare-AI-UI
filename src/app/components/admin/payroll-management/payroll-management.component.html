@@ -1,0 +1,66 @@
+<div style="padding:0;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+    <h2 style="margin:0;color:#1565c0;">Payroll Management - December 2024</h2>
+    <button mat-raised-button color="primary"><mat-icon>payments</mat-icon> Process All Pending</button>
+  </div>
+
+  <div style="display:flex;gap:16px;align-items:center;margin-bottom:20px;">
+    <mat-form-field appearance="outline" style="width:180px;">
+      <mat-label>Department</mat-label>
+      <mat-select [(ngModel)]="filterDept">
+        <mat-option value="all">All Departments</mat-option>
+        <mat-option value="Doctor">Doctors</mat-option>
+        <mat-option value="Lab">Lab</mat-option>
+        <mat-option value="Pharmacy">Pharmacy</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-card style="padding:12px 20px;background:#e3f2fd;">
+      <span style="color:#1565c0;font-weight:600;">Total Net Payroll: ${{totalNetPayroll.toLocaleString()}}</span>
+    </mat-card>
+  </div>
+
+  <mat-card>
+    <table mat-table [dataSource]="filteredEntries" style="width:100%;">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Employee</th>
+        <td mat-cell *matCellDef="let e"><strong>{{e.name}}</strong><br><span style="font-size:0.75rem;color:#999;">{{e.role}}</span></td>
+      </ng-container>
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Dept</th>
+        <td mat-cell *matCellDef="let e">{{e.department}}</td>
+      </ng-container>
+      <ng-container matColumnDef="baseSalary">
+        <th mat-header-cell *matHeaderCellDef>Base</th>
+        <td mat-cell *matCellDef="let e">${{e.baseSalary.toLocaleString()}}</td>
+      </ng-container>
+      <ng-container matColumnDef="bonus">
+        <th mat-header-cell *matHeaderCellDef>Bonus</th>
+        <td mat-cell *matCellDef="let e" style="color:#43a047;">+${{e.bonus.toLocaleString()}}</td>
+      </ng-container>
+      <ng-container matColumnDef="deductions">
+        <th mat-header-cell *matHeaderCellDef>Deductions</th>
+        <td mat-cell *matCellDef="let e" style="color:#e53935;">-${{e.deductions.toLocaleString()}}</td>
+      </ng-container>
+      <ng-container matColumnDef="net">
+        <th mat-header-cell *matHeaderCellDef>Net Pay</th>
+        <td mat-cell *matCellDef="let e" style="font-weight:bold;">${{e.net.toLocaleString()}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let e">
+          <mat-chip [style.background]="e.status === 'Processed' ? '#e8f5e9' : '#fff3e0'"
+            [style.color]="e.status === 'Processed' ? '#2e7d32' : '#e65100'" style="font-size:0.75rem;">{{e.status}}</mat-chip>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let e">
+          <button *ngIf="e.status === 'Pending'" mat-raised-button color="primary" style="font-size:0.8rem;">Pay</button>
+          <button *ngIf="e.status === 'Processed'" mat-stroked-button style="font-size:0.8rem;">View</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>

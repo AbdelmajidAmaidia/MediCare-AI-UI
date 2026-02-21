@@ -1,0 +1,36 @@
+<div style="padding:0;">
+  <h2 style="margin:0 0 24px;color:#1565c0;">Pharmacy Dashboard</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px;">
+    <mat-card *ngFor="let s of stats" style="padding:20px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <mat-icon [style.color]="s.color" style="font-size:32px;height:32px;width:32px;">{{s.icon}}</mat-icon>
+        <div>
+          <div style="font-size:1.8rem;font-weight:bold;" [style.color]="s.color">{{s.value}}</div>
+          <div style="color:#666;font-size:0.8rem;">{{s.label}}</div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:24px;">
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Order Status</h3>
+      <canvas baseChart [data]="chartData" [type]="chartType" [options]="chartOptions"></canvas>
+    </mat-card>
+
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Recent Orders</h3>
+      <div *ngFor="let o of recentOrders" style="padding:12px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-weight:600;">{{o.patient}}</div>
+          <div style="color:#666;font-size:0.85rem;">{{o.items}}</div>
+          <div style="color:#999;font-size:0.8rem;">{{o.id}} · {{o.time}}</div>
+        </div>
+        <mat-chip [style.background]="o.status === 'Delivered' ? '#e8f5e9' : o.status === 'Dispatched' ? '#e3f2fd' : o.status === 'Ready' ? '#f3e5f5' : '#fff3e0'"
+          [style.color]="o.status === 'Delivered' ? '#2e7d32' : o.status === 'Dispatched' ? '#1565c0' : o.status === 'Ready' ? '#6a1b9a' : '#e65100'"
+          style="font-size:0.75rem;">{{o.status}}</mat-chip>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<div style="padding:0;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+    <h2 style="margin:0;color:#1565c0;">Active Consultation</h2>
+    <div style="display:flex;gap:8px;">
+      <button mat-raised-button color="warn"><mat-icon>call_end</mat-icon> End Session</button>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:300px 1fr;gap:24px;">
+    <!-- Patient Info Panel -->
+    <div>
+      <mat-card style="padding:20px;margin-bottom:16px;">
+        <div style="text-align:center;margin-bottom:16px;">
+          <mat-icon style="font-size:64px;height:64px;width:64px;color:#90a4ae;">account_circle</mat-icon>
+          <h3 style="margin:8px 0 4px;">{{patient.name}}</h3>
+          <p style="color:#666;margin:0;">{{patient.age}} y/o · {{patient.gender}} · {{patient.blood}}</p>
+        </div>
+        <mat-divider></mat-divider>
+        <div style="margin-top:16px;">
+          <h4 style="color:#1565c0;margin:0 0 8px;">Vital Signs</h4>
+          <div *ngFor="let v of [['BP', patient.vitals.bp],['HR', patient.vitals.hr],['Temp', patient.vitals.temp],['Weight', patient.vitals.weight],['SpO2', patient.vitals.o2]]"
+            style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:0.9rem;">
+            <span style="color:#666;">{{v[0]}}</span>
+            <strong>{{v[1]}}</strong>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <h4 style="color:#e53935;margin:0 0 8px;">⚠ Allergies</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <mat-chip *ngFor="let a of patient.allergies" style="background:#ffebee;color:#c62828;font-size:0.75rem;">{{a}}</mat-chip>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <h4 style="color:#1565c0;margin:0 0 8px;">Current Medications</h4>
+          <p *ngFor="let m of patient.currentMeds" style="margin:4px 0;font-size:0.85rem;color:#444;">• {{m}}</p>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Consultation Tabs -->
+    <mat-card style="padding:24px;">
+      <mat-tab-group>
+        <mat-tab label="Clinical Notes">
+          <form [formGroup]="notesForm" style="padding-top:20px;">
+            <mat-form-field appearance="outline" style="width:100%;margin-bottom:16px;">
+              <mat-label>Chief Complaint</mat-label>
+              <textarea matInput formControlName="chiefComplaint" rows="2" placeholder="Patient's primary concern..."></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width:100%;margin-bottom:16px;">
+              <mat-label>Physical Examination</mat-label>
+              <textarea matInput formControlName="examination" rows="3"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width:100%;margin-bottom:16px;">
+              <mat-label>Assessment / Diagnosis</mat-label>
+              <textarea matInput formControlName="assessment" rows="2"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width:100%;margin-bottom:16px;">
+              <mat-label>Treatment Plan</mat-label>
+              <textarea matInput formControlName="plan" rows="3"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="saveNotes()" [disabled]="notesForm.invalid">
+              <mat-icon>save</mat-icon> Save Notes
+            </button>
+          </form>
+        </mat-tab>
+        <mat-tab label="Prescriptions">
+          <form [formGroup]="prescriptionForm" style="padding-top:20px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+              <mat-form-field appearance="outline">
+                <mat-label>Medication</mat-label>
+                <input matInput formControlName="medication" placeholder="e.g., Amoxicillin">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Dosage</mat-label>
+                <input matInput formControlName="dosage" placeholder="e.g., 500mg">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Frequency</mat-label>
+                <mat-select formControlName="frequency">
+                  <mat-option value="Once daily">Once daily</mat-option>
+                  <mat-option value="Twice daily">Twice daily</mat-option>
+                  <mat-option value="Three times daily">Three times daily</mat-option>
+                  <mat-option value="As needed">As needed</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Duration</mat-label>
+                <input matInput formControlName="duration" placeholder="e.g., 7 days">
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" style="width:100%;margin-bottom:16px;">
+              <mat-label>Special Instructions</mat-label>
+              <input matInput formControlName="instructions" placeholder="e.g., Take with food">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="addPrescription()" [disabled]="prescriptionForm.invalid">
+              <mat-icon>add</mat-icon> Add Prescription
+            </button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+</div>

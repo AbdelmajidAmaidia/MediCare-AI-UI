@@ -1,0 +1,43 @@
+<div style="padding:0;">
+  <h2 style="margin:0 0 24px;color:#1565c0;">Doctor Dashboard</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;">
+    <mat-card *ngFor="let s of stats" style="padding:20px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <mat-icon [style.color]="s.color" style="font-size:36px;height:36px;width:36px;">{{s.icon}}</mat-icon>
+        <div>
+          <div style="font-size:1.8rem;font-weight:bold;" [style.color]="s.color">{{s.value}}</div>
+          <div style="color:#666;font-size:0.85rem;">{{s.label}}</div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:24px;margin-bottom:24px;">
+    <!-- Weekly Chart -->
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Weekly Overview</h3>
+      <canvas baseChart [data]="chartData" [type]="chartType" [options]="chartOptions"></canvas>
+    </mat-card>
+
+    <!-- Today's Schedule -->
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Today's Schedule</h3>
+      <div *ngFor="let a of todayAppointments" style="padding:12px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-weight:600;">{{a.patient}}</div>
+          <div style="color:#666;font-size:0.8rem;">{{a.type}} · Age {{a.age}}</div>
+          <div style="color:#999;font-size:0.8rem;">{{a.time}}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <mat-chip [style.background]="a.status === 'Arrived' ? '#e8f5e9' : a.status === 'Waiting' ? '#fff3e0' : '#e3f2fd'"
+            [style.color]="a.status === 'Arrived' ? '#2e7d32' : a.status === 'Waiting' ? '#e65100' : '#1565c0'"
+            style="font-size:0.75rem;">{{a.status}}</mat-chip>
+          <button mat-icon-button color="primary" routerLink="/dashboard/doctor/consultations">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

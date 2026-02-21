@@ -1,0 +1,47 @@
+<div style="padding:0;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+    <h2 style="margin:0;color:#1565c0;">Delivery Management</h2>
+    <button mat-raised-button color="primary"><mat-icon>add</mat-icon> New Delivery</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:24px;">
+    <!-- Active Deliveries -->
+    <div>
+      <mat-card style="padding:24px;margin-bottom:20px;">
+        <h3 style="margin:0 0 20px;color:#1565c0;">Active Deliveries</h3>
+        <div *ngFor="let d of deliveries" style="padding:16px;border:1px solid #e0e0e0;border-radius:8px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px;">
+            <div>
+              <div style="font-weight:600;">{{d.patient}}</div>
+              <div style="color:#666;font-size:0.85rem;"><mat-icon style="font-size:14px;height:14px;width:14px;vertical-align:middle;">location_on</mat-icon> {{d.address}}</div>
+              <div style="color:#555;font-size:0.85rem;margin-top:4px;">📦 {{d.medications}}</div>
+            </div>
+            <mat-chip [style.background]="d.status === 'Delivered' ? '#e8f5e9' : d.status === 'In Transit' ? '#e3f2fd' : '#fff3e0'"
+              [style.color]="d.status === 'Delivered' ? '#2e7d32' : d.status === 'In Transit' ? '#1565c0' : '#e65100'"
+              style="font-size:0.75rem;">{{d.status}}</mat-chip>
+          </div>
+          <div style="display:flex;gap:24px;font-size:0.8rem;color:#666;">
+            <span>🏍️ {{d.rider}}</span>
+            <span>🕐 Dispatched: {{d.dispatchTime}}</span>
+            <span>⏱️ ETA: {{d.eta}}</span>
+            <span style="color:#999;">{{d.id}}</span>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Rider Status -->
+    <div>
+      <mat-card style="padding:20px;">
+        <h3 style="margin:0 0 16px;color:#1565c0;">Riders</h3>
+        <div *ngFor="let r of riderStats" style="padding:12px;border-bottom:1px solid #f0f0f0;">
+          <div style="font-weight:600;">{{r.name}}</div>
+          <div style="color:#666;font-size:0.8rem;">{{r.deliveries}} deliveries · ★{{r.rating}}</div>
+          <mat-chip [style.background]="r.status === 'Active' ? '#e8f5e9' : '#fff3e0'"
+            [style.color]="r.status === 'Active' ? '#2e7d32' : '#e65100'"
+            style="font-size:0.7rem;margin-top:4px;">{{r.status}}</mat-chip>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

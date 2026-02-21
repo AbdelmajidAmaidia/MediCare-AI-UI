@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <mat-icon>local_hospital</mat-icon>
+  <span style="margin-left:8px;font-weight:bold;">MediCare AI</span>
+  <span style="flex:1;"></span>
+  <a mat-button routerLink="/landing">Home</a>
+  <a mat-button routerLink="/services">Services</a>
+  <a mat-raised-button color="accent" routerLink="/login">Login</a>
+</mat-toolbar>
+
+<div style="background:linear-gradient(135deg,#1565c0,#0d47a1);color:white;padding:64px 24px;text-align:center;">
+  <h1 style="font-size:2.5rem;">Health & Technology Blog</h1>
+  <p style="font-size:1.2rem;max-width:500px;margin:16px auto 0;">Insights on healthcare innovation, AI, and patient wellness.</p>
+</div>
+
+<div style="padding:64px 24px;max-width:1200px;margin:0 auto;">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;">
+    <mat-card *ngFor="let p of posts">
+      <div style="background:#e3f2fd;height:140px;display:flex;align-items:center;justify-content:center;">
+        <mat-icon style="font-size:64px;height:64px;width:64px;color:#1565c0;">article</mat-icon>
+      </div>
+      <mat-card-content style="padding:20px;">
+        <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center;">
+          <mat-chip style="font-size:0.75rem;">{{p.category}}</mat-chip>
+          <span style="color:#999;font-size:0.8rem;">{{p.readTime}} read</span>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:1.1rem;line-height:1.4;">{{p.title}}</h3>
+        <p style="color:#666;font-size:0.9rem;margin:0 0 12px;">{{p.summary}}</p>
+        <span style="color:#999;font-size:0.8rem;">{{p.date}}</span>
+      </mat-card-content>
+      <mat-card-actions style="padding:8px 20px 16px;">
+        <button mat-button color="primary">Read More</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div style="padding: 0;">
+  <h2 style="margin:0 0 24px;color:#1565c0;">Welcome back, Sarah! 👋</h2>
+
+  <!-- Stats Grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;">
+    <mat-card *ngFor="let s of stats" style="padding:20px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <mat-icon [style.color]="s.color" style="font-size:36px;height:36px;width:36px;">{{s.icon}}</mat-icon>
+        <div>
+          <div style="font-size:1.8rem;font-weight:bold;" [style.color]="s.color">{{s.value}}</div>
+          <div style="color:#666;font-size:0.85rem;">{{s.label}}</div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;">
+    <!-- Health Trends Chart -->
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Health Trends (6 months)</h3>
+      <canvas baseChart [data]="chartData" [type]="chartType" [options]="chartOptions"></canvas>
+    </mat-card>
+
+    <!-- Upcoming Appointments -->
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Upcoming Appointments</h3>
+      <div *ngFor="let a of appointments" style="padding:12px 0;border-bottom:1px solid #f0f0f0;">
+        <div style="display:flex;justify-content:space-between;align-items:start;">
+          <div>
+            <div style="font-weight:600;">{{a.doctor}}</div>
+            <div style="color:#666;font-size:0.85rem;">{{a.specialty}}</div>
+            <div style="color:#999;font-size:0.8rem;">{{a.date}} · {{a.time}}</div>
+          </div>
+          <mat-chip [style.background]="a.status === 'Confirmed' ? '#e8f5e9' : '#fff3e0'"
+            [style.color]="a.status === 'Confirmed' ? '#2e7d32' : '#e65100'">
+            {{a.status}}
+          </mat-chip>
+        </div>
+      </div>
+      <button mat-button color="primary" routerLink="/dashboard/patient/appointments" style="margin-top:16px;">
+        Book New Appointment →
+      </button>
+    </mat-card>
+  </div>
+
+  <!-- Quick Actions -->
+  <mat-card style="padding:24px;">
+    <h3 style="margin:0 0 16px;color:#1565c0;">Quick Actions</h3>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button mat-raised-button color="primary" routerLink="/dashboard/patient/ai-chat">
+        <mat-icon>smart_toy</mat-icon> AI Health Chat
+      </button>
+      <button mat-raised-button routerLink="/dashboard/patient/records">
+        <mat-icon>folder_shared</mat-icon> My Records
+      </button>
+      <button mat-raised-button routerLink="/dashboard/patient/pharmacy">
+        <mat-icon>local_pharmacy</mat-icon> Order Medication
+      </button>
+      <button mat-raised-button routerLink="/dashboard/patient/billing">
+        <mat-icon>receipt</mat-icon> View Bills
+      </button>
+    </div>
+  </mat-card>
+</div>

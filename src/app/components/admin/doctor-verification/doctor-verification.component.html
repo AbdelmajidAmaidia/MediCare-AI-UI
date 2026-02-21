@@ -1,0 +1,48 @@
+<div style="padding:0;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+    <h2 style="margin:0;color:#1565c0;">Doctor Verification Queue</h2>
+    <div style="display:flex;gap:8px;">
+      <mat-chip style="background:#fff3e0;color:#e65100;">{{applications.length}} Pending</mat-chip>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:20px;">
+    <mat-card *ngFor="let app of applications" style="padding:24px;">
+      <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:16px;">
+        <div style="display:flex;gap:16px;align-items:center;">
+          <mat-icon style="font-size:48px;height:48px;width:48px;color:#90a4ae;">account_circle</mat-icon>
+          <div>
+            <h3 style="margin:0 0 4px;">{{app.name}}</h3>
+            <div style="color:#1565c0;font-size:0.9rem;">{{app.specialty}}</div>
+            <div style="color:#666;font-size:0.85rem;">{{app.hospital}}</div>
+          </div>
+        </div>
+        <mat-chip [style.background]="app.status === 'Approved' ? '#e8f5e9' : app.status === 'Rejected' ? '#ffebee' : app.status === 'Under Review' ? '#e3f2fd' : '#fff3e0'"
+          [style.color]="app.status === 'Approved' ? '#2e7d32' : app.status === 'Rejected' ? '#c62828' : app.status === 'Under Review' ? '#1565c0' : '#e65100'">
+          {{app.status}}
+        </mat-chip>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px;background:#f5f5f5;padding:16px;border-radius:8px;">
+        <div><span style="color:#666;font-size:0.8rem;">License No</span><br><strong>{{app.licenseNo}}</strong></div>
+        <div><span style="color:#666;font-size:0.8rem;">Submitted</span><br><strong>{{app.submittedDate}}</strong></div>
+        <div><span style="color:#666;font-size:0.8rem;">Application ID</span><br><strong>{{app.id}}</strong></div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <span style="color:#666;font-size:0.85rem;">Submitted Documents: </span>
+        <mat-chip-set>
+          <mat-chip *ngFor="let doc of app.documents" style="font-size:0.75rem;">
+            <mat-icon matChipAvatar>description</mat-icon>{{doc}}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+
+      <div *ngIf="app.status === 'Pending' || app.status === 'Under Review'" style="display:flex;gap:8px;">
+        <button mat-raised-button color="primary" (click)="approve(app)"><mat-icon>check_circle</mat-icon> Approve</button>
+        <button mat-raised-button color="warn" (click)="reject(app)"><mat-icon>cancel</mat-icon> Reject</button>
+        <button mat-stroked-button><mat-icon>visibility</mat-icon> Review Documents</button>
+      </div>
+    </mat-card>
+  </div>
+</div>
