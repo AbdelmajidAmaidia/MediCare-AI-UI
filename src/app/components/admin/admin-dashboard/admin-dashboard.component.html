@@ -1,0 +1,32 @@
+<div style="padding:0;">
+  <h2 style="margin:0 0 24px;color:#1565c0;">System Overview</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:24px;">
+    <mat-card *ngFor="let s of stats" style="padding:20px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <mat-icon [style.color]="s.color" style="font-size:36px;height:36px;width:36px;">{{s.icon}}</mat-icon>
+        <div>
+          <div style="font-size:1.8rem;font-weight:bold;" [style.color]="s.color">{{s.value}}</div>
+          <div style="color:#666;font-size:0.8rem;">{{s.label}}</div>
+          <div style="color:#43a047;font-size:0.75rem;">{{s.change}}</div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:24px;">
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Platform Growth</h3>
+      <canvas baseChart [data]="chartData" [type]="chartType" [options]="chartOptions"></canvas>
+    </mat-card>
+
+    <mat-card style="padding:24px;">
+      <h3 style="margin:0 0 16px;color:#1565c0;">Recent Alerts</h3>
+      <div *ngFor="let a of recentAlerts" style="padding:10px;border-radius:6px;margin-bottom:8px;"
+        [style.background]="a.type === 'error' ? '#ffebee' : a.type === 'warning' ? '#fff3e0' : a.type === 'success' ? '#e8f5e9' : '#e3f2fd'">
+        <p style="margin:0 0 4px;font-size:0.85rem;color:#333;">{{a.message}}</p>
+        <span style="font-size:0.75rem;color:#999;">{{a.time}}</span>
+      </div>
+    </mat-card>
+  </div>
+</div>
