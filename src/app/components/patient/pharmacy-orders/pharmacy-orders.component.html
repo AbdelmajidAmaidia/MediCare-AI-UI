@@ -1,0 +1,33 @@
+<div style="padding:0;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+    <h2 style="margin:0;color:#1565c0;">Pharmacy Orders</h2>
+    <button mat-raised-button color="primary">
+      <mat-icon>add</mat-icon> New Order
+    </button>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:20px;">
+    <mat-card *ngFor="let order of orders" style="padding:24px;">
+      <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px;">
+        <div>
+          <h3 style="margin:0 0 4px;">{{order.medication}}</h3>
+          <p style="margin:0;color:#666;font-size:0.9rem;">{{order.quantity}} · Prescribed by {{order.prescribedBy}}</p>
+          <p style="margin:4px 0 0;color:#999;font-size:0.8rem;">Order {{order.id}} · {{order.orderedDate}}</p>
+        </div>
+        <mat-chip [style.background]="statusColor(order.status)">{{order.status}}</mat-chip>
+      </div>
+
+      <!-- Progress Steps -->
+      <div style="display:flex;justify-content:space-between;align-items:center;position:relative;">
+        <div style="position:absolute;top:12px;left:0;right:0;height:2px;background:#e0e0e0;z-index:0;"></div>
+        <div *ngFor="let step of order.steps; let i = index" style="display:flex;flex-direction:column;align-items:center;z-index:1;">
+          <div [style.background]="i <= getStatusIndex(order.status) ? '#1565c0' : '#e0e0e0'"
+            style="width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <mat-icon *ngIf="i <= getStatusIndex(order.status)" style="color:white;font-size:14px;height:14px;width:14px;">check</mat-icon>
+          </div>
+          <span style="font-size:0.65rem;color:#666;margin-top:4px;text-align:center;max-width:60px;">{{step}}</span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

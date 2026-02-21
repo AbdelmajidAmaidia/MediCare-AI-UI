@@ -1,0 +1,39 @@
+<mat-sidenav-container style="height: 100vh;">
+  <mat-sidenav mode="side" opened style="width: 240px; padding-top: 64px;">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let item of navItems" (click)="navigate(item.route)"
+        [activated]="router.url === item.route">
+        <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+        <span matListItemTitle>{{item.label}}</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" style="position: fixed; top: 0; z-index: 100; width: 100%;">
+      <mat-icon>local_hospital</mat-icon>
+      <span style="margin-left: 8px; font-weight: bold;">MediCare AI</span>
+      <span style="flex: 1;"></span>
+      <mat-select [(ngModel)]="selectedRole" (ngModelChange)="onRoleChange($event)"
+        style="color: white; width: 120px;">
+        <mat-option value="patient">Patient</mat-option>
+        <mat-option value="doctor">Doctor</mat-option>
+        <mat-option value="lab">Lab</mat-option>
+        <mat-option value="pharmacy">Pharmacy</mat-option>
+        <mat-option value="admin">Admin</mat-option>
+      </mat-select>
+      <span style="margin-left: 16px;">{{userName}}</span>
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <div style="padding: 80px 24px 24px 24px; max-width: 1400px; margin: 0 auto;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

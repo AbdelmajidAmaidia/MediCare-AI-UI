@@ -1,0 +1,53 @@
+<div style="padding:0;">
+  <h2 style="margin:0 0 24px;color:#1565c0;">Medical Records</h2>
+
+  <mat-card style="padding:20px;margin-bottom:24px;">
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+      <mat-form-field appearance="outline" style="flex:1;min-width:200px;">
+        <mat-label>Search records</mat-label>
+        <input matInput [(ngModel)]="search" placeholder="Search by diagnosis or doctor">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width:180px;">
+        <mat-label>Record Type</mat-label>
+        <mat-select [(ngModel)]="filterType">
+          <mat-option value="all">All Types</mat-option>
+          <mat-option value="Consultation">Consultation</mat-option>
+          <mat-option value="Lab Results">Lab Results</mat-option>
+          <mat-option value="Imaging">Imaging</mat-option>
+          <mat-option value="Prescription">Prescription</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary">
+        <mat-icon>download</mat-icon> Export All
+      </button>
+    </div>
+  </mat-card>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let r of filteredRecords" style="margin-bottom:8px;">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="font-weight:600;">{{r.diagnosis}}</mat-panel-title>
+        <mat-panel-description style="display:flex;align-items:center;gap:16px;">
+          <span>{{r.date}}</span>
+          <mat-chip [style.background]="r.type === 'Lab Results' ? '#e3f2fd' : r.type === 'Imaging' ? '#f3e5f5' : '#e8f5e9'"
+            style="font-size:0.75rem;">{{r.type}}</mat-chip>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div style="padding:8px 0;">
+        <p><strong>Record ID:</strong> {{r.id}}</p>
+        <p><strong>Physician:</strong> {{r.doctor}}</p>
+        <p><strong>Notes:</strong> {{r.notes}}</p>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button mat-stroked-button color="primary"><mat-icon>download</mat-icon> Download PDF</button>
+          <button mat-stroked-button><mat-icon>share</mat-icon> Share</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="filteredRecords.length === 0" style="text-align:center;padding:48px;color:#999;">
+    <mat-icon style="font-size:48px;height:48px;width:48px;">folder_open</mat-icon>
+    <p>No records found</p>
+  </div>
+</div>
