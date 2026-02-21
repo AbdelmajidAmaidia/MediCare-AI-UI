@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
-import { BaseChartDirective } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 
 interface Transaction { date: string; patient: string; service: string; amount: number; status: string; }
@@ -13,7 +13,7 @@ interface Transaction { date: string; patient: string; service: string; amount: 
 @Component({
   selector: 'app-doctor-financial',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatTableModule, MatChipsModule, BaseChartDirective],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatTableModule, MatChipsModule, NgChartsModule],
   templateUrl: './doctor-financial.component.html',
 })
 export class DoctorFinancialComponent {

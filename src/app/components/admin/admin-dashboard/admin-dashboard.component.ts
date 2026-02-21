@@ -5,13 +5,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
-import { BaseChartDirective } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, MatTableModule, BaseChartDirective],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, MatTableModule, NgChartsModule],
   templateUrl: './admin-dashboard.component.html',
 })
 export class AdminDashboardComponent {

@@ -5,13 +5,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { BaseChartDirective } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-patient-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, BaseChartDirective],
+  imports: [CommonModule, RouterModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, NgChartsModule],
   templateUrl: './patient-dashboard.component.html',
 })
 export class PatientDashboardComponent {

@@ -7,13 +7,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { BaseChartDirective } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-financial-admin',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, MatTableModule, MatSelectModule, FormsModule, BaseChartDirective],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatChipsModule, MatTableModule, MatSelectModule, FormsModule, NgChartsModule],
   templateUrl: './financial-admin.component.html',
 })
 export class FinancialAdminComponent {
