@@ -19,6 +19,7 @@ export const routes: Routes = [
       { path: 'patient/billing', loadComponent: () => import('./backoffice/patient/billing/billing-history.component').then(m => m.BillingHistoryComponent) },
       { path: 'patient/pharmacy', loadComponent: () => import('./backoffice/patient/pharmacy/pharmacy-orders.component').then(m => m.PharmacyOrdersComponent) },
       { path: 'patient/prescriptions', loadComponent: () => import('./backoffice/patient/prescriptions/prescription-flow.component').then(m => m.PrescriptionFlowComponent) },
+      { path: 'patient/mental-health', loadComponent: () => import('./backoffice/patient/mental-health/mental-health.component').then(m => m.MentalHealthComponent) },
       { path: 'patient/pricing', loadComponent: () => import('./frontoffice/pricing/pricing.component').then(m => m.PricingComponent) },
       { path: 'doctor/home', loadComponent: () => import('./backoffice/doctor/dashboard/doctor-dashboard.component').then(m => m.DoctorDashboardComponent) },
       { path: 'doctor/patients', loadComponent: () => import('./backoffice/doctor/patients/patient-list.component').then(m => m.PatientListComponent) },

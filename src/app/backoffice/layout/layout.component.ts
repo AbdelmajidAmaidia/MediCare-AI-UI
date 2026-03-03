@@ -26,6 +26,7 @@ export class LayoutComponent implements OnInit {
     { label: 'Billing', route: '/dashboard/patient/billing' },
     { label: 'Pharmacy', route: '/dashboard/patient/pharmacy' },
     { label: 'Prescriptions', route: '/dashboard/patient/prescriptions' },
+    { label: 'Mental Health', route: '/dashboard/patient/mental-health' },
     { label: 'Pricing Plans', route: '/dashboard/patient/pricing' },
   ];
 
