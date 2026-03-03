@@ -1,0 +1,212 @@
+<!-- =====================================================================
+     Mental Health Module – Patient View
+     ===================================================================== -->
+
+<!-- ─── Session List (default view) ──────────────────────────────────── -->
+<div *ngIf="view === 'list'">
+
+  <h2>Mental Health</h2>
+  <p>AI-powered behavioral analysis for stress and burnout detection using facial signal analysis.</p>
+
+  <!-- Consent status -->
+  <section>
+    <h3>Consent</h3>
+    <p *ngIf="consent?.granted">
+      ✔ You have granted consent for AI-based emotional analysis
+      (granted {{ consent?.grantedAt }}).
+    </p>
+    <p *ngIf="!consent?.granted">
+      You have not yet given consent for AI-based emotional analysis.
+    </p>
+    <button *ngIf="!consent?.granted" type="button" (click)="showConsentForm()">
+      Give Consent
+    </button>
+  </section>
+
+  <!-- Error message -->
+  <p *ngIf="errorMessage">⚠ {{ errorMessage }}</p>
+
+  <!-- Start new session -->
+  <section>
+    <h3>New Session</h3>
+    <p *ngIf="activeSession">
+      A session ({{ activeSession.id }}) is currently in progress.
+      Please wait for the AI analysis to complete.
+    </p>
+    <button
+      type="button"
+      (click)="startSession()"
+      [disabled]="!consent?.granted || !!activeSession">
+      Start Mental Health Session
+    </button>
+  </section>
+
+  <!-- Past sessions -->
+  <section>
+    <h3>Session History</h3>
+    <p *ngIf="sessions.length === 0">No sessions recorded yet.</p>
+    <table *ngIf="sessions.length > 0">
+      <thead>
+        <tr>
+          <th>Session ID</th>
+          <th>Started</th>
+          <th>Completed</th>
+          <th>Status</th>
+          <th>Stress Level</th>
+          <th>Burnout Risk</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of sessions">
+          <td>{{ s.id }}</td>
+          <td>{{ s.startedAt }}</td>
+          <td>{{ s.completedAt ?? '—' }}</td>
+          <td>{{ s.status }}</td>
+          <td>{{ s.stressAssessment?.stressLevel ?? '—' }}</td>
+          <td>{{ s.burnoutPrediction?.burnoutRisk ?? '—' }}</td>
+          <td>
+            <button
+              type="button"
+              *ngIf="s.status === MH_SessionStatus.COMPLETED"
+              (click)="viewReport(s)">
+              View Report
+            </button>
+            <span *ngIf="s.status !== MH_SessionStatus.COMPLETED">—</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<!-- ─── Consent Form ───────────────────────────────────────────────────── -->
+<div *ngIf="view === 'consent'">
+
+  <h2>Consent for AI-Based Emotional Analysis</h2>
+
+  <section>
+    <p>
+      MediCare AI uses facial signal analysis (blink detection, gaze tracking,
+      micro-expression recognition, and head pose estimation) to assess your
+      stress levels and burnout risk.
+    </p>
+    <p>
+      <strong>Purpose:</strong> EMOTIONAL_ANALYSIS, STRESS_DETECTION, BURNOUT_PREDICTION
+    </p>
+    <ul>
+      <li>Data is processed in real time and is not stored beyond the session.</li>
+      <li>You may withdraw consent at any time.</li>
+      <li>Results are visible only to you and your care team.</li>
+    </ul>
+  </section>
+
+  <div>
+    <button type="button" (click)="grantConsent()">I Consent</button>
+    <button type="button" (click)="backToList()">Cancel</button>
+  </div>
+
+</div>
+
+<!-- ─── Active Session View ───────────────────────────────────────────── -->
+<div *ngIf="view === 'session'">
+
+  <h2>Mental Health Session in Progress</h2>
+  <p>Session ID: {{ selectedSession?.id }}</p>
+  <p>Status: {{ selectedSession?.status }}</p>
+
+  <section>
+    <p>
+      The AI is capturing and analyzing your facial signals.
+      Please remain still and look at the camera.
+    </p>
+    <ul>
+      <li>Capturing face signal snapshots…</li>
+      <li>Computing stress assessment…</li>
+      <li>Predicting burnout risk…</li>
+      <li>Generating mental health report…</li>
+    </ul>
+    <p>This usually takes a few seconds. The page will update automatically.</p>
+  </section>
+
+  <button type="button" (click)="backToList()">Back to List</button>
+
+</div>
+
+<!-- ─── Report View ───────────────────────────────────────────────────── -->
+<div *ngIf="view === 'report' && selectedSession">
+
+  <h2>Mental Health Report</h2>
+
+  <!-- Session metadata -->
+  <section>
+    <h3>Session Details</h3>
+    <ul>
+      <li><strong>Session ID:</strong> {{ selectedSession.id }}</li>
+      <li><strong>Started:</strong>   {{ selectedSession.startedAt }}</li>
+      <li><strong>Completed:</strong> {{ selectedSession.completedAt }}</li>
+      <li><strong>Status:</strong>    {{ selectedSession.status }}</li>
+    </ul>
+  </section>
+
+  <!-- Face Signal Snapshots -->
+  <section>
+    <h3>Face Signal Snapshots ({{ selectedSession.snapshots.length }})</h3>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Signal Type</th><th>Captured At</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sn of selectedSession.snapshots">
+          <td>{{ sn.id }}</td>
+          <td>{{ sn.signalType }}</td>
+          <td>{{ sn.capturedAt }}</td>
+          <td>{{ sn.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Stress Assessment -->
+  <section *ngIf="selectedSession.stressAssessment">
+    <h3>Stress Assessment</h3>
+    <ul>
+      <li><strong>Stress Level:</strong>  {{ selectedSession.stressAssessment.stressLevel }}</li>
+      <li><strong>Score:</strong>         {{ selectedSession.stressAssessment.score }} / 100</li>
+      <li><strong>Confidence:</strong>    {{ (selectedSession.stressAssessment.confidence * 100).toFixed(0) }}%</li>
+      <li><strong>Assessed At:</strong>   {{ selectedSession.stressAssessment.assessedAt }}</li>
+    </ul>
+  </section>
+
+  <!-- Burnout Prediction -->
+  <section *ngIf="selectedSession.burnoutPrediction">
+    <h3>Burnout Prediction</h3>
+    <ul>
+      <li><strong>Burnout Risk:</strong>  {{ selectedSession.burnoutPrediction.burnoutRisk }}</li>
+      <li><strong>Score:</strong>         {{ selectedSession.burnoutPrediction.score }} / 100</li>
+      <li><strong>Confidence:</strong>    {{ (selectedSession.burnoutPrediction.confidence * 100).toFixed(0) }}%</li>
+      <li><strong>Predicted At:</strong>  {{ selectedSession.burnoutPrediction.predictedAt }}</li>
+    </ul>
+  </section>
+
+  <!-- Report Summary & Recommendations -->
+  <section *ngIf="selectedSession.report">
+    <h3>Summary</h3>
+    <p>{{ selectedSession.report.summary }}</p>
+
+    <h3>Recommendations</h3>
+    <ul>
+      <li *ngFor="let r of selectedSession.report.recommendations">{{ r }}</li>
+    </ul>
+
+    <p><strong>Report generated:</strong> {{ selectedSession.report.generatedAt }}</p>
+    <p>
+      <strong>Notification sent:</strong>
+      {{ selectedSession.report.notificationSent ? 'Yes' : 'No' }}
+    </p>
+  </section>
+
+  <button type="button" (click)="backToList()">Back to Sessions</button>
+
+</div>
