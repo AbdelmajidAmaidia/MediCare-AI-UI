@@ -1,0 +1,40 @@
+<div>
+  <h2>Welcome back!</h2>
+
+  <section>
+    <h3>Overview</h3>
+    <ul>
+      <li *ngFor="let s of stats">
+        <strong>{{ s.value }}</strong> {{ s.label }}
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Upcoming Appointments</h3>
+    <table>
+      <thead>
+        <tr><th>Doctor</th><th>Specialty</th><th>Date</th><th>Time</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of appointments">
+          <td>{{ a.doctor }}</td>
+          <td>{{ a.specialty }}</td>
+          <td>{{ a.date }}</td>
+          <td>{{ a.time }}</td>
+          <td>{{ a.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3>Quick Actions</h3>
+    <ul>
+      <li><a routerLink="/dashboard/patient/ai-chat">AI Health Chat</a></li>
+      <li><a routerLink="/dashboard/patient/records">My Records</a></li>
+      <li><a routerLink="/dashboard/patient/pharmacy">Order Medication</a></li>
+      <li><a routerLink="/dashboard/patient/billing">View Bills</a></li>
+    </ul>
+  </section>
+</div>

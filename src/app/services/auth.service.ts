@@ -11,7 +11,7 @@ export class AuthService {
 
   login(): void {
     this.isLoggedInSubject.next(true);
-    this.router.navigate(['/dashboard/patient/home']);
+    this.router.navigate(['/dashboard']);
   }
 
   logout(): void {

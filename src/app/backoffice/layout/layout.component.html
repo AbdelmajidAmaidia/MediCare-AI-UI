@@ -1,0 +1,30 @@
+<div>
+  <header>
+    <nav>
+      <span>MediCare AI</span>
+      <select [(ngModel)]="selectedRole" (ngModelChange)="onRoleChange($event)">
+        <option value="patient">Patient</option>
+        <option value="doctor">Doctor</option>
+        <option value="lab">Lab</option>
+        <option value="pharmacy">Pharmacy</option>
+        <option value="admin">Admin</option>
+      </select>
+      <span>{{ userName }}</span>
+      <button type="button" (click)="logout()">Logout</button>
+    </nav>
+  </header>
+  <div>
+    <aside>
+      <nav>
+        <ul>
+          <li *ngFor="let item of navItems">
+            <a [routerLink]="item.route">{{ item.label }}</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
