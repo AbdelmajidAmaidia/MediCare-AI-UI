@@ -3,6 +3,8 @@
 
 An Angular 19 healthcare management UI with multi-role dashboards (Patient, Doctor, Admin, Lab, Pharmacy) and AI-assisted features.
 
+**GitHub repository:** https://github.com/AbdelmajidAmaidia/MediCare-AI-UI
+
 The original design is available at https://www.figma.com/design/bRgSJ5YinChGk7kzzE1Ipr/MediCare-AI-%E2%80%93-UI-Final.
 
 ## Prerequisites
